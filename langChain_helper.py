@@ -8,27 +8,69 @@ os.environ['OPENAI_API_KEY'] = openai_key
 
 llm = OpenAI(temperature=0.6)
 
-def generate_resturant_name_and_items(cuisine):
-    prompt_template_name = PromptTemplate(
-        input_variables=['name'],
-        template="Give me a fancy name for a {name} resturant."
-    )
-    name_chain = LLMChain(llm=llm, prompt=prompt_template_name, output_key='resturant_name')
+def generate_recipe_names(selected_items):
+    # prompt_template_recipe = PromptTemplate(
+    #     input_variables=['ingredients'],
+    #     template="Generate a popular recipe that includes ingredients from {ingredients}. "
+    #              "Feel free to use any of these ingredients and be creative with the cooking instructions. "
+    #              "It can be as simple or as complex as you like. "
+    #              "Please include the cooking time and any special instructions."
+    # )
+    # recipe_chain = LLMChain(llm=llm, prompt=prompt_template_recipe, output_key='recipe')
 
-    prompt_template_items = PromptTemplate(
-        input_variables=['resturant_name'],
-        template="Give me some menu items for {resturant_name}. Return it as comma seperated list"
+    prompt_template_recipe_name = PromptTemplate(
+        input_variables=['ingredients'],
+        template="Please provide popular meal names that include ingredients from {ingredients}. "
+                 "I need only meal names "
+
     )
-    food_item_chain = LLMChain(llm=llm, prompt=prompt_template_items, output_key='menu_items')
+    recipe_name_chain = LLMChain(llm=llm, prompt=prompt_template_recipe_name, output_key='recipe_name')
+
+    # prompt_template_recipe = PromptTemplate(
+    #     input_variables=['recipe_name'],
+    #     template="Generate a recipe for {recipe_name}. Please include a list of ingredients and "
+    #              "step-by-step instructions for preparing {recipe_name}."
+    #              "Please include the cooking time and any special instructions."
+    # )
+    # recipe_chain = LLMChain(llm=llm, prompt=prompt_template_recipe, output_key='recipe')
 
     chain = SequentialChain(
-        chains=[name_chain, food_item_chain],
-        input_variables=['name'],
-        output_variables=['resturant_name', 'menu_items']
+        chains=[recipe_name_chain],
+        input_variables=['ingredients'],
+        output_variables=['recipe_name']
     )
-    response = chain({'name': cuisine})
+    response = chain({'ingredients': selected_items})
+
+    # chain = SequentialChain(
+    #     chains=[recipe_chain],
+    #     input_variables=['ingredients'],
+    #     output_variables=['recipe']
+    # )
+    # response = chain({'ingredients': selected_items})
 
     return response
 
-if __name__ == "__main__":
-    print(generate_resturant_name_and_items("Sri Lankan"))
+
+def generate_recipe(recipe_name):
+    prompt_template_recipe = PromptTemplate(
+        input_variables=['recipe_name'],
+        template="Generate a recipe for {recipe_name}. Please include a list of ingredients and "
+                 "step-by-step instructions for preparing {recipe_name}."
+                 "Please include the cooking time and any special instructions."
+    )
+    recipe_chain = LLMChain(llm=llm, prompt=prompt_template_recipe, output_key='recipe')
+
+    chain = SequentialChain(
+        chains=[recipe_chain],
+        input_variables=['recipe_name'],
+        output_variables=['recipe']
+    )
+    response = chain({'recipe_name': recipe_name})
+
+    return response
+
+
+
+
+# if __name__ == "__main__":
+#     print(generate_resturant_name_and_items("Sri Lankan"))
