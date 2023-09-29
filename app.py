@@ -74,8 +74,6 @@ if hasattr(st.session_state, "recipe_names"):
 
     # When "View the Recipe" button is clicked...
     if st.button("View the Recipe"):
-        print("View recipe button clicked")
-
         # Get recipe from LLM
         recipe = langChain_helper.generate_recipe(selected_recipe)
 
