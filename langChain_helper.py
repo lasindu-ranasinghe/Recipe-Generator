@@ -16,7 +16,6 @@ def generate_recipe_names(selected_items):
                  "Ingredients are {ingredients}. " \
                  "It's not necessary to use all of the ingredients, " \
                  "and the list can include both simple and complex meal names. " \
-                 "Please give me that list inside an array."\
                  "Please consider the ingredients provided and suggest meal names accordingly."
     )
     recipe_name_chain = LLMChain(llm=llm, prompt=prompt_template_recipe_name, output_key='recipe_name')

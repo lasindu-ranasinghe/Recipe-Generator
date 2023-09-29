@@ -30,6 +30,7 @@ if st.sidebar.button("Generate Recipes"):
     if selected_items:
         response1 = langChain_helper.generate_recipe_names(selected_items)
         recipe_names = [line.strip() for line in response1['recipe_name'].split('\n') if line.strip()]
+        print(recipe_names )
 
         if recipe_names:
             # recipe_names_tuple = tuple(recipe_names)
@@ -38,9 +39,8 @@ if st.sidebar.button("Generate Recipes"):
                 (recipe_names))
             print(selected_recipe)
 
-            if st.button("View the Recipe"):
-                if selected_recipe:
-                    response2 = langChain_helper.generate_recipe(selected_recipe)
-                    st.title(response2['recipe_name'])
-                    st.header("Instructions:")
-                    st.markdown(response2['recipe'])
+            if selected_recipe and st.button("View the Recipe"):
+                response2 = langChain_helper.generate_recipe(selected_recipe)
+                st.title(response2['recipe_name'])
+                st.header("Instructions:")
+                st.markdown(response2['recipe'])
