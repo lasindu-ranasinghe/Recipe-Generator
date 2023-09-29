@@ -3,6 +3,9 @@
 import streamlit as st
 import langChain_helper
 
+
+# PAGE SETUP
+
 # Set main title for page
 st.title("Recipe Generator")
 
@@ -32,6 +35,8 @@ baking_supplies_selected = st.sidebar.multiselect("Baking Supplies", baking_supp
 seafood_selected = st.sidebar.multiselect("Seafood", seafood)
 
 
+# INTERACTION WITH THE PAGE
+
 # When "Generate Recipes" button is clicked...
 if st.sidebar.button("Generate Recipes"):
     selected_items = (
@@ -45,7 +50,10 @@ if st.sidebar.button("Generate Recipes"):
     )
     print(f"selected_items: {selected_items}")
 
+    # Get list of recipe names from the LLM
     recipe_names = langChain_helper.generate_recipe_names(selected_items)
+
+    # Convert LLM response to Python list
     recipe_names = [
         line.strip() for line in recipe_names["recipe_name"].split("\n") if line.strip()
     ]
@@ -63,7 +71,7 @@ if hasattr(st.session_state, "recipe_names"):
     if st.button("View the Recipe"):
         print("View recipe button clicked")
 
-        # Get recipe from LLM chain
+        # Get recipe from LLM
         recipe = langChain_helper.generate_recipe(selected_recipe)
 
         # Render recipe on page
