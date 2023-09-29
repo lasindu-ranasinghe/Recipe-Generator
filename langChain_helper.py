@@ -1,6 +1,7 @@
 # INITIALIZATION
 
 # LangChain imports
+import langchain
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
@@ -13,6 +14,18 @@ from dotenv import load_dotenv
 # load API key from .env
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+
+# LangChain debugging settings
+langchain.debug = True
+
+"""
+NOTE
+
+LangChain applications can be debugged easily using either the debug mode (as done above)
+or by enabling verbose outputs (recommended for agents).
+
+Reference: https://python.langchain.com/docs/guides/debugging
+"""
 
 
 # MODEL
