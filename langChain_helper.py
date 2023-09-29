@@ -23,7 +23,7 @@ langchain.verbose = False
 NOTE
 
 LangChain applications can be debugged easily either
-1. by enabling the debug mode (as done above), or
+1. by enabling the debug mode or
 2. by enabling verbose outputs (recommended for agents).
 
 Turn on (switch to True) one of the above and see what happens when the chain executes.
