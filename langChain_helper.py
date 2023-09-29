@@ -16,7 +16,7 @@ load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 # LangChain debugging settings
-langchain.debug = True
+langchain.debug = False
 langchain.verbose = False
 
 """
@@ -67,7 +67,7 @@ def generate_recipe_names(selected_items):
         llm=llm, prompt=prompt_template_recipe_name, output_key="recipe_name"
     )
 
-    # Set up multichain workflow
+    # Set up multichain workflow with inputs
     chain = SequentialChain(
         chains=[recipe_name_chain],
         input_variables=["ingredients"],
@@ -103,7 +103,7 @@ def generate_recipe(recipe_name):
     # Set up chain
     recipe_chain = LLMChain(llm=llm, prompt=prompt_template_recipe, output_key="recipe")
 
-    # Set up multichain workflow
+    # Set up multichain workflow with inputs
     chain = SequentialChain(
         chains=[recipe_chain],
         input_variables=["recipe_name"],
