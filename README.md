@@ -8,7 +8,8 @@ Recipe Generator is an LLM-based web app for generating recipes using your own i
 
 ### Prerequisites
 
-Python (at least 3.9.0) must be installed on your system.
+1. <a href="https://git-scm.com/">Git<a>
+2. Python (at least 3.9.0) must be installed on your system.
 
 After Python has been set up, install the `virtualenv` package to create and manage a virtual environment for this project. This helps you maintain the project's dependencies in a hassle-free manner, without installing any unnecessary packages globally throughout your system.
 
