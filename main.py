@@ -45,9 +45,9 @@ if st.sidebar.button("Generate Recipes"):
     )
     print(f"selected_items: {selected_items}")
 
-    response1 = langChain_helper.generate_recipe_names(selected_items)
+    recipe_names = langChain_helper.generate_recipe_names(selected_items)
     recipe_names = [
-        line.strip() for line in response1["recipe_name"].split("\n") if line.strip()
+        line.strip() for line in recipe_names["recipe_name"].split("\n") if line.strip()
     ]
     print(f"recipe_names: {recipe_names}")
 
@@ -64,9 +64,9 @@ if hasattr(st.session_state, "recipe_names"):
         print("View recipe button clicked")
 
         # Get recipe from LLM chain
-        response2 = langChain_helper.generate_recipe(selected_recipe)
+        recipe = langChain_helper.generate_recipe(selected_recipe)
 
         # Render recipe on page
-        st.title(response2["recipe_name"])
+        st.title(recipe["recipe_name"])
         st.header("Instructions:")
-        st.markdown(response2["recipe"])
+        st.markdown(recipe["recipe"])
