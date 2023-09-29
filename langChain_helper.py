@@ -7,22 +7,26 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SequentialChain
 
-# general imports
+# General imports
 import os
 from dotenv import load_dotenv
 
-# load API key from .env
+# Load API key from .env
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 # LangChain debugging settings
-langchain.debug = True
+langchain.debug = False
+langchain.verbose = False
 
 """
 NOTE
 
-LangChain applications can be debugged easily using either the debug mode (as done above)
-or by enabling verbose outputs (recommended for agents).
+LangChain applications can be debugged easily either
+1. by enabling the debug mode (as done above), or
+2. by enabling verbose outputs (recommended for agents).
+
+Turn on (switch to True) one of the above and see what happens when the chain executes.
 
 Reference: https://python.langchain.com/docs/guides/debugging
 """
