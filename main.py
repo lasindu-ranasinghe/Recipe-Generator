@@ -38,23 +38,23 @@ if st.sidebar.button("Generate Recipes"):
         + baking_supplies_selected
         + seafood_selected
     )
+    print(f"selected_items: {selected_items}")
 
-    if selected_items:
-        response1 = langChain_helper.generate_recipe_names(selected_items)
-        recipe_names = [
-            line.strip()
-            for line in response1["recipe_name"].split("\n")
-            if line.strip()
-        ]
-        print(recipe_names)
+    response1 = langChain_helper.generate_recipe_names(selected_items)
+    recipe_names = [
+        line.strip() for line in response1["recipe_name"].split("\n") if line.strip()
+    ]
+    print(f"recipe_names: {recipe_names}")
 
-        if recipe_names:
-            # recipe_names_tuple = tuple(recipe_names)
-            selected_recipe = st.selectbox("Select a recipe:", (recipe_names))
-            print(selected_recipe)
+    # Store the recipe names in session_state
+    st.session_state.recipe_names = recipe_names
 
-            if selected_recipe and st.button("View the Recipe"):
-                response2 = langChain_helper.generate_recipe(selected_recipe)
-                st.title(response2["recipe_name"])
-                st.header("Instructions:")
-                st.markdown(response2["recipe"])
+if hasattr(st.session_state, "recipe_names"):
+    selected_recipe = st.selectbox("Select a recipe:", st.session_state.recipe_names)
+
+    if st.button("View the Recipe"):
+        print("View recipe button clicked")
+        response2 = langChain_helper.generate_recipe(selected_recipe)
+        st.title(response2["recipe_name"])
+        st.header("Instructions:")
+        st.markdown(response2["recipe"])
