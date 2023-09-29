@@ -6,8 +6,13 @@ import langChain_helper
 
 # PAGE SETUP
 
+# Page name, favicon and layout
+st.set_page_config(
+    page_title="Recipe Generator", page_icon=":man_cook:", layout="centered"
+)
+
 # Set main title for page
-st.title("Recipe Generator")
+st.title("👨‍🍳 Recipe Generator")
 
 # Define food categories
 vegetables = ["Carrots", "Potatoes", "Broccoli", "Spinach", "Tomatoes", "Bell peppers"]
