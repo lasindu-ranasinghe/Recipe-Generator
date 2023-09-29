@@ -1,13 +1,26 @@
+# INITIALIZATION
+
+# LangChain imports
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SequentialChain
-from secrets import openai_key
-import os
 
-os.environ["OPENAI_API_KEY"] = openai_key
+# general imports
+import os
+from dotenv import load_dotenv
+
+# load API key from .env
+load_dotenv()
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+
+
+# MODEL
 
 llm = OpenAI(temperature=0.6)
+
+
+# PROMPT MANAGEMENT
 
 
 def generate_recipe_names(selected_items):
@@ -50,7 +63,3 @@ def generate_recipe(recipe_name):
     response = chain({"recipe_name": recipe_name})
 
     return response
-
-
-# if __name__ == "__main__":
-#     print(generate_resturant_name_and_items("Sri Lankan"))
